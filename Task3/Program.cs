@@ -26,23 +26,11 @@ int[,] CreateMatrix(int rows, int columns)
     return matrix;
 }
 
-void PrintMatrix(int[,] matrix)
+void PrintMatrix(int[,] matrix, int cursorPosition)
 {
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        for (int j = 0; j < matrix.GetLength(1); j++)
-        {
-            System.Console.Write($"{matrix[i, j]} ");
-        }
-        System.Console.WriteLine();
-    }
-}
-
-void PrintMatrix2(int[,] matrix, int cursorPosition)
-{
-    for (int i = 0; i < matrix.GetLength(0); i++)
-    {
-        Console.SetCursorPosition(cursorPosition * 2, i + 2);
+        Console.SetCursorPosition(cursorPosition * 2, i);
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
             System.Console.Write($"{matrix[i, j]} ");
@@ -67,13 +55,13 @@ int[,] MultiplicationMatrix(int[,] matrix1, int[,] matrix2)
     return matrixMult;
 }
 
-Console.Clear();
 int amountRows = Prompt("Введите желаемое количество строк в массиве");
 int amountColumns = Prompt("Введите желаемое количество столбцов");
 int[,] numbers = CreateMatrix(amountRows, amountColumns);
 int[,] array = CreateMatrix(amountColumns, amountRows);
 int[,] multNumbersArray = MultiplicationMatrix(numbers, array);
-PrintMatrix(numbers);
-PrintMatrix2(array, amountColumns + 2);
-PrintMatrix2(multNumbersArray, amountColumns + amountRows + 4);
-
+Console.Clear();
+PrintMatrix(numbers, 0);
+PrintMatrix(array, amountColumns + 2);
+PrintMatrix(multNumbersArray, amountColumns + amountRows + 4);
+if (array.GetLength(0) > numbers.GetLength(0)) Console.SetCursorPosition(0, array.GetLength(0));
